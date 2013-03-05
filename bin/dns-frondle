@@ -1,1 +1,13 @@
-#!/bin/sh
+#!/bin/sh -euf
+
+. _imports
+
+repo=$1
+shift 1
+
+git_clone ${repo} /tmp
+
+for i in $*
+do
+    ssh_ping ${i}
+done
