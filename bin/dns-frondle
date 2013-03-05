@@ -2,6 +2,8 @@
 
 . _imports
 
+[ $# == 0 ] && usage "<git-repo> dns-server [dns-server ...]"
+
 me=`basename $0`
 repo=$1
 shift 1
