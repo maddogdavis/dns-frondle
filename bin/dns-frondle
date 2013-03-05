@@ -2,22 +2,26 @@
 
 . _imports
 
+me=`basename $0`
 repo=$1
 shift 1
 servers=$*
-
-init_tmp
 
 for i in ${servers}
 do
     ssh_ping ${i}
 done
 
-git_clone ${repo} /tmp
+init_tmp
+stamp
+clone=${tmp}/${__}__${me}
+git_clone ${repo} ${clone}
 
 for i in ${servers}
 do
-    
+    RHOME=`ssh ${i} 'echo ${HOME}'`
+    echo ${RHOME}
+    ssh ${i} mkd
 done
 
 # push out onto each

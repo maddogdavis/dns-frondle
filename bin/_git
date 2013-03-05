@@ -4,5 +4,9 @@ git_clone() {
     local repo=$1
     local dst=$2
 
-    cd $dst && git clone ${repo}
+    echo ".......${dst}........"
+    check_file d n ${dst}
+    mkdir ${dst}
+    cd ${dst} 
+    git clone ${repo}
 }

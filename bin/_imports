@@ -1,4 +1,10 @@
 #!/bin/sh
 
+. _fail
+. _stamp
+
+. _fs
+. _tmp
+
 . _ssh
 . _git
