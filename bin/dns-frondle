@@ -7,9 +7,6 @@ repo=$1
 shift 1
 servers=$*
 
-# TODO: REMOVE TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-servers=cashew
-
 for i in ${servers}
 do
     ssh_ping ${i}
