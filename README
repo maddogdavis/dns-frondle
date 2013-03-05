@@ -1,0 +1,4 @@
+A tool for deploying named (bind) configuration and zone files to a set
+of DNS servers.  The idea being that a DNS configuration for one or many
+zones should be under version control.  The act of deploying any change
+to a DNS configuration is orchestrated by this tool.
