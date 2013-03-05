@@ -9,6 +9,7 @@ repo=$1
 shift 1
 servers=$*
 
+# ping check all servers
 for i in ${servers}
 do
     ssh_ping ${i}
@@ -17,10 +18,18 @@ done
 init_tmp
 stamp
 stamp=${__}
-ver="${stamp}__${me}"
-clone="${tmp}/${ver}"
+load="${stamp}__${me}"
+clone="${tmp}/${load}"
 git_clone ${repo} ${clone}
+reponame=${__}
+git_head_id ${clone}/${reponame}
+gitcom=${__}
+ver="${stamp}__${gitcom}__${me}"
+repoloc="${tmp}/${ver}/${reponame}"
+mv ${clone} ${tmp}/${ver}
+clone="${tmp}/${ver}"
 
+# upload git repo to all servers
 for i in ${servers}
 do
     frondle_env
@@ -29,6 +38,7 @@ do
     scp -rp -q ${clone} ${i}:${SNAPS}
 done
 
+# switch live link on all servers
 for i in ${servers}
 do
     frondle_env
@@ -36,9 +46,8 @@ do
     ssh ${i} 'rm -f '${DNSHOME}'/live && ln -s '${SNAPS}'/'${ver} ${DNSHOME}'/live'
 done
 
+# poke named on each server.
 for i in ${servers}
 do
     ssh ${i} 'rndc reload'
 done
-
-# signal each

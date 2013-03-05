@@ -7,6 +7,14 @@ git_clone() {
     check_file d n ${dst}
     mkdir ${dst}
     cd ${dst} 
-    echo "git clone ${repo}"
+    echo "cloning ${repo}..."
     git clone -q ${repo}
+    __=`ls`
+}
+
+git_head_id() {
+    local repoloc=$1
+
+    cd ${repoloc}
+    __=`git rev-parse HEAD | cut -c1-7`
 }
