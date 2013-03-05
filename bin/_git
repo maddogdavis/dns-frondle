@@ -1,0 +1,8 @@
+#!/bin/sh
+
+git_clone() {
+    local repo=$1
+    local dst=$2
+
+    cd $dst && git clone ${repo}
+}

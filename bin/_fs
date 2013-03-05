@@ -1,0 +1,20 @@
+#!/bin/sh
+
+check_file() {
+    local type=$1
+    local exists=$2
+    local name=$3
+
+    case ${exists} in
+        y)
+            [ ! -${type} ${name} ] && fail "${name} does not exist"
+        ;;
+        n)
+            [ -${type} ${name} ] && fail "${name} already exists"
+        ;;
+        *)
+        fail "invalid check file type ${type}"
+    esac
+
+    return 0
+}

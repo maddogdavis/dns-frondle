@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ssh_ping() {
+    local remote=$1
+    ssh ${remote} 'true'
+    echo "remote ${remote} ok"
+}

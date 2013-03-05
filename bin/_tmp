@@ -1,0 +1,5 @@
+#!/bin/sh
+
+init_tmp() {
+    tmp=${TMDIR:-/tmp}
+}

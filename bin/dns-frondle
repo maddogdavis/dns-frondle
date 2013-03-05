@@ -4,10 +4,22 @@
 
 repo=$1
 shift 1
+servers=$*
 
-git_clone ${repo} /tmp
+init_tmp
 
-for i in $*
+for i in ${servers}
 do
     ssh_ping ${i}
 done
+
+git_clone ${repo} /tmp
+
+for i in ${servers}
+do
+    
+done
+
+# push out onto each
+# click into place in each
+# signal each
