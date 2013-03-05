@@ -9,16 +9,20 @@ repo=$1
 shift 1
 servers=$*
 
+echo "commencing update to $# servers"
+
 # ping check all servers
 for i in ${servers}
 do
     ssh_ping ${i}
 done
 
+exit 5
+
 init_tmp
 stamp
 stamp=${__}
-load="${stamp}__${me}"
+load="${stamp}"
 clone="${tmp}/${load}"
 git_clone ${repo} ${clone}
 reponame=${__}
