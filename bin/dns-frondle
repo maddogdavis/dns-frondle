@@ -17,8 +17,6 @@ do
     ssh_ping ${i}
 done
 
-exit 5
-
 init_tmp
 stamp
 

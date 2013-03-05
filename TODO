@@ -1,3 +1,2 @@
 . move general utilities (such as date) out into utilities
-. output server count
 . [ rndc reload x | x <- zones ]
