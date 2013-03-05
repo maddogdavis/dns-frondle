@@ -1,4 +1,3 @@
 . move general utilities (such as date) out into utilities
-. add git commit id to snap area
 . output server count
 . [ rndc reload x | x <- zones ]
