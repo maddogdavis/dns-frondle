@@ -21,10 +21,14 @@ exit 5
 
 init_tmp
 stamp
+
+# load from git HEAD
 stamp=${__}
 load="${stamp}"
 clone="${tmp}/${load}"
 git_clone ${repo} ${clone}
+
+# rename to incorporate git commit id
 reponame=${__}
 git_head_id ${clone}/${reponame}
 gitcom=${__}
