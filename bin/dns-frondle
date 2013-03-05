@@ -7,6 +7,9 @@ repo=$1
 shift 1
 servers=$*
 
+# TODO: REMOVE TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+servers=cashew
+
 for i in ${servers}
 do
     ssh_ping ${i}
@@ -14,16 +17,29 @@ done
 
 init_tmp
 stamp
-clone=${tmp}/${__}__${me}
+stamp=${__}
+ver="${stamp}__${me}"
+clone="${tmp}/${ver}"
 git_clone ${repo} ${clone}
 
 for i in ${servers}
 do
-    RHOME=`ssh ${i} 'echo ${HOME}'`
-    echo ${RHOME}
-    ssh ${i} mkd
+    frondle_env
+    echo "syncing to ${i}..."
+    ssh ${i} 'mkdir -p '${DNSHOME}'/snaps'
+    scp -rp -q ${clone} ${i}:${SNAPS}
 done
 
-# push out onto each
-# click into place in each
+for i in ${servers}
+do
+    frondle_env
+    echo "linking live to ${ver}"
+    ssh ${i} 'rm -f '${DNSHOME}'/live && ln -s '${DNSHOME}'/'${ver} ${DNSHOME}'/live'
+done
+
+for i in ${servers}
+do
+    ssh ${i} 'rndc reload'
+done
+
 # signal each
