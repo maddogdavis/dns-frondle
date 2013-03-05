@@ -1,0 +1,19 @@
+Currently this is random set of notes explaining steps to build this
+system...
+
+{p1,s2,s3} are the names of the DNS servers. {c0} is the conductor.  The
+user under which the control occurs on {p1,s2,s3} is 'ops', except for
+any setup which is performed as root.  The user 'ops' also must belong
+to group 'wheel' (or equivalent).
+
+NAMED_HOME is the location of the named root directory.  In this example
+{p1,s2,s3} are FreeBSD 9.1 machines with:
+
+    NAMED_HOME=/etc/named
+
+Generate an rndc key:
+
+{p1,s2,s3}# RNDCK=${NAMED_HOME}/rndc.key
+{p1,s2,s3}# [ -f ${RNDCK} ] || rndc-confgen -a -c ${RNDCK}
+{p1,s2,s3}# chgrp wheel ${RNDCK}
+{p1,s2,s3}# chmod 640 ${RNDCK}
