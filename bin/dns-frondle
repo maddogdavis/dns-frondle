@@ -34,7 +34,7 @@ for i in ${servers}
 do
     frondle_env
     echo "linking live to ${ver}"
-    ssh ${i} 'rm -f '${DNSHOME}'/live && ln -s '${DNSHOME}'/'${ver} ${DNSHOME}'/live'
+    ssh ${i} 'rm -f '${DNSHOME}'/live && ln -s '${SNAPS}'/'${ver} ${DNSHOME}'/live'
 done
 
 for i in ${servers}

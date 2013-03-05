@@ -7,5 +7,6 @@ git_clone() {
     check_file d n ${dst}
     mkdir ${dst}
     cd ${dst} 
+    echo "git clone ${repo}"
     git clone -q ${repo}
 }

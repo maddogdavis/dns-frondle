@@ -1,0 +1,7 @@
+#!/bin/sh
+
+frondle_env() {
+    RHOME="/etc/namedb"
+    DNSHOME="${RHOME}/${me}"
+    SNAPS="${DNSHOME}/snaps"
+}
