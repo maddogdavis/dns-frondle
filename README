@@ -2,3 +2,30 @@ A tool for deploying named (bind) configuration and zone files to a set
 of DNS servers.  The idea being that a DNS configuration for one or many
 zones should be under version control.  The act of deploying any change
 to a DNS configuration is orchestrated by this tool.
+
+The tool itself has the following usage:
+
+    $ dns-frondle
+    usage: dns-frondle <git-repo> dns-server [dns-server ...]
+
+With example:
+
+    $ dns-frondle git@github.com:/maddogdavis/dns.git spud gun fire
+
+Where {spud,gun,fire} are DNS servers either internal or out in the wild
+internet.
+
+There are 5 distinct parts to the execution:
+
+    1. Ensure SSH access to each of the listed DNS servers.
+
+    2. Checkout the git repo locally.
+
+    3. Upload the git repo to each of the listed DNS servers.
+
+    4. Switch the live BIND link on each of the listed DNS servers.
+
+    5. Poke each of the DNS servers using "rndc reload".
+
+Every execution of dns-frondle creates a unique, timestamped area on each of
+the DNS servers.  Each area contains the git commit id in its name.
