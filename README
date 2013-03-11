@@ -12,8 +12,8 @@ With example:
 
     $ dns-frondle git@github.com:/maddogdavis/dns.git spud gun fire
 
-Where {spud,gun,fire} are DNS servers either internal or out in the wild
-internet.
+Where {spud,gun,fire} are DNS servers out in the wild internet (they can
+be internal servers too).
 
 There are 5 distinct parts to the execution:
 
