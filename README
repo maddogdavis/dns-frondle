@@ -29,3 +29,6 @@ There are 5 distinct parts to the execution:
 
 Every execution of dns-frondle creates a unique, timestamped area on each of
 the DNS servers.  Each area contains the git commit id in its name.
+
+There is some minimal setup required on each of the DNS servers.  This is
+covered in the INSTALL file.
