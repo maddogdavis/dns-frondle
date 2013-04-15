@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dns_slaves() {
+    local repo=$1
+    local server=$2
+
+    local conf="${repo}/conf/${server}/named.conf"
+    check_file f y ${conf}
+
+    __=`cat ${conf} | grep slave | grep file | grep -v root.slave | grep -v arpa.slave | sed 's+.*/\(.*\)";+\1+'`
+}

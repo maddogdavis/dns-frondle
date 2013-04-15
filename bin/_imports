@@ -9,4 +9,6 @@
 . _ssh
 . _git
 
+. _dns
+
 . _frondle

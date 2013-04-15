@@ -2,6 +2,8 @@
 
 . _imports
 
+alias echo="/bin/echo"
+
 [ $# == 0 ] && usage "<git-repo> dns-server [dns-server ...]"
 
 me=`basename $0`
@@ -35,6 +37,12 @@ repoloc="${tmp}/${ver}/${reponame}"
 mv ${clone} ${tmp}/${ver}
 clone="${tmp}/${ver}"
 
+# determine slaves or fail early
+for i in ${servers}
+do
+    dns_slaves ${repoloc} ${i}
+done
+
 # upload git repo to all servers
 for i in ${servers}
 do
@@ -55,5 +63,13 @@ done
 # poke named on each server.
 for i in ${servers}
 do
+    echo -n "${i} "
     ssh ${i} 'rndc reload'
+    dns_slaves ${repoloc} ${i}
+    slaves=${__}
+    for j in ${slaves}
+    do
+        echo -n "${i} slave ${j} "
+        ssh ${i} 'rndc reload '${j}''
+    done
 done
