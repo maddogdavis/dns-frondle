@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dns_slaves() {
+dns_get_slaves() {
     local repo=$1
     local server=$2
 

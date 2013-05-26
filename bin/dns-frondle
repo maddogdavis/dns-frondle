@@ -1,5 +1,7 @@
 #!/bin/sh -euf
 
+# TODO: ensure RHOME,DNSHOME,SNAPS exist
+
 . _imports
 
 alias echo="/bin/echo"
@@ -7,9 +9,11 @@ alias echo="/bin/echo"
 [ $# == 0 ] && usage "<git-repo> dns-server [dns-server ...]"
 
 me=`basename $0`
-repo=$1
+repo_url=$1
 shift 1
 servers=$*
+
+init_tmp
 
 echo "commencing update to $# servers"
 
@@ -19,46 +23,35 @@ do
     ssh_ping ${i}
 done
 
-init_tmp
-stamp
-
-# load from git HEAD
-stamp=${__}
-load="${stamp}"
-clone="${tmp}/${load}"
-git_clone ${repo} ${clone}
-
-# rename to incorporate git commit id
-reponame=${__}
-git_head_id ${clone}/${reponame}
-gitcom=${__}
-ver="${stamp}__${gitcom}__${me}"
-repoloc="${tmp}/${ver}/${reponame}"
-mv ${clone} ${tmp}/${ver}
-clone="${tmp}/${ver}"
+# load from git
+git_stamp ${repo_url}; 
+repo_loc=${__}
+ver=`echo ${repo_loc} | sed "s+^${tmp}/\(.*\)/.*$+\1+"`
 
 # determine slaves or fail early
 for i in ${servers}
 do
-    dns_slaves ${repoloc} ${i}
+    dns_get_slaves ${repo_loc} ${i}
+    echo slaves ${i} ${__}
 done
 
 # upload git repo to all servers
 for i in ${servers}
 do
-    frondle_env
     echo "syncing to ${i}..."
-    ssh ${i} 'mkdir -p '${DNSHOME}'/snaps'
-    scp -rp -q ${clone} ${i}:${SNAPS}
+    frondle_env ${i}
+    scp -rp -q ${tmp}/${ver} ${i}:${__frondle_snaps}
 done
 
 # switch live link on all servers
 for i in ${servers}
 do
-    frondle_env
     echo "linking live to ${ver}"
-    ssh ${i} 'rm -f '${DNSHOME}'/live && ln -s '${SNAPS}'/'${ver} ${DNSHOME}'/live'
+    frondle_env ${i}
+    ssh ${i} 'rm -f '${__frondle_home}'/live && ln -s '${__frondle_snaps}'/'${ver} ${__frondle_home}'/live'
 done
+
+fail "WORK TO BE DONE..."
 
 # poke named on each server.
 for i in ${servers}

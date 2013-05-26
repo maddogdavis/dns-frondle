@@ -1,7 +1,23 @@
 #!/bin/sh
 
 frondle_env() {
-    RHOME="/etc/namedb"
-    DNSHOME="${RHOME}/${me}"
-    SNAPS="${DNSHOME}/snaps"
+    local host=$1
+
+    os=`ssh ${host} 'uname -s'`
+
+    case ${os} in
+        Linux)
+            __named_root="/var/named"
+            __named_conf="/etc/named.conf"
+        ;;
+        FreeBSD)
+            __named_root="/etc/namedb"
+            __named_conf="/etc/namedb/named.conf"
+        ;;
+        *)
+            fail "unsupported os type ${os}"
+    esac
+    
+    __frondle_home="${__named_root}/${me}"
+    __frondle_snaps="${__frondle_home}/snaps"
 }

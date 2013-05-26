@@ -1,0 +1,6 @@
+#!/bin/sh
+
+determine_os() {
+    local remote=$1
+    __=`ssh ${remote} 'uname -s'`
+}
