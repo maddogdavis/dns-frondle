@@ -1,7 +1,5 @@
 #!/bin/sh -euf
 
-# TODO: ensure RHOME,DNSHOME,SNAPS exist
-
 . _imports
 
 alias echo="/bin/echo"
@@ -51,14 +49,12 @@ do
     ssh ${i} 'rm -f '${__frondle_home}'/live && ln -s '${__frondle_snaps}'/'${ver} ${__frondle_home}'/live'
 done
 
-fail "WORK TO BE DONE..."
-
 # poke named on each server.
 for i in ${servers}
 do
     echo -n "${i} "
     ssh ${i} 'rndc reload'
-    dns_slaves ${repoloc} ${i}
+    dns_get_slaves ${repo_loc} ${i}
     slaves=${__}
     for j in ${slaves}
     do
