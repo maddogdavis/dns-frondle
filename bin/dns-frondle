@@ -44,7 +44,7 @@ done
 # switch live link on all servers
 for i in ${servers}
 do
-    echo "linking live to ${ver}"
+    echo "linking live ${i} to ${ver}"
     frondle_env ${i}
     ssh ${i} 'rm -f '${__frondle_home}'/live && ln -s '${__frondle_snaps}'/'${ver} ${__frondle_home}'/live'
 done
