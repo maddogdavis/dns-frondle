@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. ___fail
+. ___stamp
+
+. ___fs
+. ___tmp
+
+. ___ssh
+. ___git
+
+. ___dns
+
+. ___frondle

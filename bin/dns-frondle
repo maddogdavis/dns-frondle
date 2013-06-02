@@ -1,6 +1,6 @@
 #!/bin/sh -euf
 
-. _imports
+. ___imports
 
 alias echo="/bin/echo"
 
