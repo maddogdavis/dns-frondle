@@ -7,5 +7,5 @@ dns_get_slaves() {
     local conf="${repo}/conf/${server}/named.conf"
     check_file f y ${conf}
 
-    __=`cat ${conf} | grep slave | grep file | grep -v root.slave | grep -v arpa.slave | sed 's+.*/\(.*\)";+\1+'`
+    __=`cat ${conf} | grep -v "^#" | grep slave | grep file | grep -v root.slave | grep -v arpa.slave | sed 's+.*/\(.*\)";+\1+'`
 }
