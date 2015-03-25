@@ -38,10 +38,11 @@ for i in ${servers}
 do
     echo "syncing to ${i}..."
     frondle_env ${i}
-    scp -rp -q ${tmp}/${ver} ${i}:${__frondle_snaps} &
+    scp -rp -q ${tmp}/${ver} ${i}:${__frondle_snaps}
+#    scp -rp -q ${tmp}/${ver} ${i}:${__frondle_snaps} &
 done
 
-wait
+# wait (later)
 
 # switch live link on all servers
 for i in ${servers}
